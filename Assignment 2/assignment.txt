@@ -1,0 +1,58 @@
+1. 
+	a.
+		function consR takes as arguments a list and an element, and returns a list with the element placed at right of the existing list.
+
+		consR(L,e) = cons(elt,L), for L = NIL
+		consR(L,e) = cons(car(L), consR(cdr(L),elt)).
+
+		Base Case: If list is empty, then return element 
+		Recursive Case: return head of list and recur on tail of list. 
+
+4.
+	a. 
+		dist(e,L) = NIL, for L = NIL
+		dist(e,L) = cons(list(e,car(L)), dist(e,cdr(L))).
+
+	b. Unfolding the definition for dist(w,<x,y>).
+		dist(w,<x,y>)
+			=<<w,x>,dist(w,<y>)>
+			=<<w,x>,<w,y>,dist(w,<>)>
+			=<<w,x>,<w,y>>
+
+	c. function definition:
+		function dist takes as arguments an element n and a list lst, and returns a list composed of lists of two elements as n and eaxh successive element of list	lst respectively.	
+
+		Base Case: If list is empty, then return null.
+		Recursive Case: return a list with pair as the element n and the first element of list lst and recur on tail of list.
+
+	d. Tracing the execution of function dist for (dist 'a '(b c d)) :
+		(dist 'a '(b c d))
+			= (cons '(a b) (dist 'a '(c d)))
+			= (cons '(a b) '(a c) (dist 'a '(d)))
+			= (cons '(a b) '(a c) '(a d) (dist 'a '()))
+			= (cons '(a b) '(a c) '(a d))
+			= ((a b) (a c) (a d))
+
+7. 
+	Tracing the execution of the function for (filter '(12 9 3 2 7) '4)
+	(filter '(12 9 3 2 7) '4)
+		= (cons '12 (filter '(9 3 2 7) '4))
+		= (cons '12 (cons '9 (filter '(3 2 7) '4)))
+		= (cons '12 (cons '9 (filter '(2 7) '4)))
+		= (cons '12 (cons '9 (filter '(7) '4)))
+		= (cons '12 (cons '9 (cons '7 (filter '() '4))))
+		= (cons '12 (cons '9 (cons '7 '())))
+		= (12 9 7)
+
+
+9.
+	a. Recursive defnition of a procedure to calculate the height of the tree.
+		height(tree) = 0, for tree = NIL
+		height(tree) = 1 + max( height(left-sub-tree) height(right-sub-tree) )
+
+		where, left-sub-tree = (car (cdr tree))
+			   right-sub-tree = (car (cdr (cdr tree)))
+
+		Base Case: if tree is null, then return 0 
+		Recursive Case: return 1 plus the maximum height among the left and right sub tree of current root 
+		
